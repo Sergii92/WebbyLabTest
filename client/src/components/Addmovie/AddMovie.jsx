@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 import { Formik } from 'formik';
 import { useAddMovie } from '../../reducers/movies/hoocks/addMovie';
 import { CardButton } from '../Card/styles';
+import { AddForm, FormInput } from './styels';
 const customStyles = {
 	content: {
 		top: '50%',
@@ -26,104 +27,63 @@ export const Addmovie = () => {
 	const { addMovie } = useAddMovie();
 
 	return (
-		<div>
+		<React.Fragment>
 			<CardButton onClick={openMOdal}>Add new movies</CardButton>
 			<Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles} contentLabel="Example Modal">
 				<Formik
-					initialValues={{ Title: '', 'Release Year': '', Format: '', Stars: [] }}
-					// validate={(values) => {
-					// 	const errors = {};
-					// 	if (!values.email) {
-					// 		errors.email = 'Required';
-					// 	} else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-					// 		errors.email = 'Invalid email address';
-					// 	}
-					// 	return errors;
-					// }}
+					initialValues={{ Title: '', 'Release Year': '', Format: '', Stars: '' }}
 					onSubmit={(values, { setSubmitting }) => {
 						addMovie(JSON.stringify({ ...values, Stars: values.Stars.split(',') }));
-
 						closeModal();
 					}}
 				>
-					{({
-						values,
-						handleChange,
-						handleBlur,
-						handleSubmit,
-						isSubmitting
-						/* and other goodies */
-					}) => (
-						<form onSubmit={handleSubmit}>
-							<div>
-								<p>Title</p>
-								<input
-									type="text"
-									name="Title"
-									onChange={handleChange}
-									onBlur={handleBlur}
-									value={values.Title}
-								/>
-							</div>
-							<div>
-								<p>Release Year</p>
-								<input
-									type="text"
-									name="Release Year"
-									onChange={handleChange}
-									onBlur={handleBlur}
-									value={values['Release Year']}
-								/>
-							</div>
-							<div>
-								<p>Format</p>
-								<input
-									type="text"
-									name="Format"
-									onChange={handleChange}
-									onBlur={handleBlur}
-									value={values.Format}
-								/>
-							</div>
+					{({ values, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+						<AddForm onSubmit={handleSubmit}>
+							<FormInput
+								type="text"
+								name="Title"
+								onChange={handleChange}
+								onBlur={handleBlur}
+								value={values.Title}
+								placeholder="Title"
+							/>
 
-							<div>
-								<p>Stars</p>
-								<input
-									type="text"
-									name="Stars"
-									onChange={handleChange}
-									onBlur={handleBlur}
-									value={values.Stars}
-								/>
-							</div>
+							<FormInput
+								type="number"
+								name="Release Year"
+								onChange={handleChange}
+								onBlur={handleBlur}
+								value={values['Release Year']}
+								placeholder="Release Year"
+							/>
+							<FormInput
+								as="select"
+								name="Format"
+								onChange={handleChange}
+								onBlur={handleBlur}
+								value={values.Format}
+							>
+								<option value="DVD">DVD</option>
+								<option value="VHS">VHS</option>
+								<option value="Blu-Ray">Blu-Ray</option>
+							</FormInput>
 
-							<button type="submit" disabled={isSubmitting}>
+							<FormInput
+								type="text"
+								name="Stars"
+								onChange={handleChange}
+								onBlur={handleBlur}
+								value={values.Stars}
+								placeholder="Stars"
+							/>
+
+							<CardButton type="submit" disabled={isSubmitting}>
 								Submit
-							</button>
-						</form>
+							</CardButton>
+						</AddForm>
 					)}
 				</Formik>
-				{/* <form>
-					<div>
-						<h2>Title: </h2>
-						<input />
-					</div>
-					<div>
-						<h3>Release Year: </h3>
-						<input />
-					</div>
-					<div>
-						<h3>Format: </h3>
-						<input />
-					</div>
-					<div>
-						<h3>Stars: </h3>
-						<input />
-					</div>
-				</form> */}
-
-				<button onClick={closeModal}>close</button>
 			</Modal>
-		</div>
+		</React.Fragment>
 	);
 };

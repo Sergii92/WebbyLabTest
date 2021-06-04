@@ -6,12 +6,24 @@ import { useGetAllMovies } from '../reducers/movies/hoocks/getAllMovies';
 import { selectMovies } from '../reducers/movies/selectors';
 import { moviesActions } from '../reducers/movies/actions';
 import { Card } from '../components/Card/Card';
-import { HomeContainer, Header, Main, Aside, Section, LoadingWrapper } from './styles';
-import { ButtonBlock, CardButton } from '../components/Card/styles';
+import {
+	HomeContainer,
+	Header,
+	Main,
+	Aside,
+	Section,
+	LoadingWrapper,
+	Logo,
+	UploadForm,
+	Label,
+	UploadInput,
+	ButtonBlock,
+	UploadButton
+} from './styles';
+import { CardButton } from '../components/Card/styles';
 import { Search } from '../components/Search/Search';
 import { Addmovie } from '../components/Addmovie/AddMovie';
 import { Loader } from '../components/Loader/Loader';
-import { LoaderWrapper } from '../components/Loader/styles';
 
 export const Home = () => {
 	const { setMovies } = useSetMovies();
@@ -43,28 +55,25 @@ export const Home = () => {
 	return (
 		<HomeContainer>
 			<Header>
-				<div>
-					<input type="file" name="file" onChange={changeHandler} />
-					<div>
-						<button onClick={handleSubmission}>Submit</button>
-					</div>
-				</div>
+				<Logo href="/">WebbyLabTest</Logo>
+
 				<Search />
 			</Header>
 			<Main>
 				<Aside>
+					<UploadForm onSubmit={(e) => e.preventDefault()}>
+						<Label>
+							Upload movies from file
+							<UploadInput type="file" name="file" onChange={changeHandler} />
+						</Label>
+						<UploadButton onClick={handleSubmission}>Submit</UploadButton>
+					</UploadForm>
 					<ButtonBlock>
 						<CardButton onClick={handlerSort}>Sort by name</CardButton>
 						<Addmovie />
 					</ButtonBlock>
 				</Aside>
-				{moviesData.length ? (
-					<Section>{moviesData.map((movie) => <Card movie={movie} key={movie._id} />)}</Section>
-				) : (
-					<LoadingWrapper>
-						<Loader />
-					</LoadingWrapper>
-				)}
+				<Section>{moviesData.map((movie) => <Card movie={movie} key={movie._id} />)}</Section>
 			</Main>
 		</HomeContainer>
 	);

@@ -5,7 +5,6 @@ const { headers } = require('../constants/nodeConstants');
 const getMovie = (req, res, next) => {
 	const movieId = req.params.movieId;
 	const client = new MongoClient(URL);
-	console.log('movieId', movieId);
 	client.connect((err) => {
 		if (err) throw new Error(err);
 		const db = client.db(DB_NAME);

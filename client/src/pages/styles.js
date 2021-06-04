@@ -6,7 +6,7 @@ export const HomeContainer = styled.div`
 	margin: 0px;
 	margin: 0 auto;
 	min-height: 100vh;
-	background: #a4adbf;
+	background: white;
 `;
 
 export const Header = styled.div`
@@ -14,6 +14,14 @@ export const Header = styled.div`
 	display: flex;
 	justify-content: space-between;
 	padding: 10px 40px;
+	background: black;
+`;
+export const Logo = styled.a`
+	font-size: 20px;
+	font-weight: bold;
+	color: white;
+	text-decoration: none;
+	line-height: 40px;
 `;
 
 export const Main = styled.div`
@@ -25,13 +33,29 @@ export const Main = styled.div`
 export const Aside = styled.div`
 	width: 30%;
 	height: 100%;
+	display: flex;
+	flex-direction: column;
 `;
+
+export const UploadForm = styled.form`
+	background: black;
+	padding: 20px 40px;
+	color: white;
+	margin: 30px 0;
+`;
+export const Label = styled.label``;
+
+export const UploadInput = styled.input`
+	outline: none;
+	margin-top: 10px;
+`;
+export const UploadButton = styled.button``;
 
 export const Section = styled.div`
 	width: 70%;
-	padding: 50px;
+	padding-top: 30px;
 	display: flex;
-	justify-content: space-around;
+	justify-content: center;
 	flex-wrap: wrap;
 	height: 100%;
 `;
@@ -56,4 +80,12 @@ export const LoadingWrapper = styled.div`
 	> div > div {
 		background: white;
 	}
+`;
+
+export const ButtonBlock = styled.div`
+	display: flex;
+	justify-content: space-around;
+	background: black;
+	padding: 20px 40px;
+	color: white;
 `;

@@ -21,7 +21,6 @@ export const useAddMovie = () => {
 					throw new Error(res.status);
 				}
 				const data = await res.json();
-				console.log('data', data);
 				dispatch(moviesActions.setPartialMovies([ ...data ]));
 			} catch (e) {
 				console.error(e);
