@@ -5,21 +5,22 @@ const bodyParser = require('body-parser');
 const moviesPost = require('./handlers/setMoviesHandler');
 const movieRouter = require('./handlers/getMovieHandler');
 const deleteMovie = require('./handlers/deleteMovieHandler');
-const addMovie = require('./handlers/addMoviesHandler');
+const addMovie = require('./handlers/addMovieHandler');
 const searchMovies = require('./handlers/searchMoviesHandlers');
 const getMovies = require('./handlers/getMoviesHandler');
 
 const app = express();
 
 app.use(cors());
-app.use(bodyParser.json());
 
 app.post('/movies', moviesPost);
+
+app.use(bodyParser.json());
 app.get('/movies', getMovies);
 app.post('/movies/create', addMovie);
 app.get('/movies/search', searchMovies);
-app.get('/movies/:moviesId', movieRouter);
-app.delete('/movies/:moviesId', deleteMovie);
+app.get('/movies/:movieId', movieRouter);
+app.delete('/movies/:movieId', deleteMovie);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

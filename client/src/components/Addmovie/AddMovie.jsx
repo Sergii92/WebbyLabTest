@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import Modal from 'react-modal';
 import { Formik } from 'formik';
 import { useAddMovie } from '../../reducers/movies/hoocks/addMovie';
@@ -42,6 +42,7 @@ export const Addmovie = () => {
 					// }}
 					onSubmit={(values, { setSubmitting }) => {
 						addMovie(JSON.stringify({ ...values, Stars: values.Stars.split(',') }));
+
 						closeModal();
 					}}
 				>

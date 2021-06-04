@@ -3,26 +3,20 @@ import { useDispatch } from 'react-redux';
 import { API } from '../../../constants/api';
 import { moviesActions } from '../actions';
 
-export const useAddMovie = () => {
+export const useGetMovieDetails = () => {
 	const dispatch = useDispatch();
 
-	const addMovie = useCallback(
-		async (formData) => {
+	const getMovieDetails = useCallback(
+		async (id) => {
 			try {
-				const res = await fetch(`${API.MOVIES}/create`, {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json'
-					},
-					body: formData,
-					mode: 'cors'
-				});
+				const res = await fetch(`${API.MOVIES}/${id}`);
 				if (res.status !== 200) {
 					throw new Error(res.status);
 				}
+
 				const data = await res.json();
-				console.log('data', data);
-				dispatch(moviesActions.setPartialMovies([ ...data ]));
+
+				dispatch(moviesActions.setMovieDetails(data));
 			} catch (e) {
 				console.error(e);
 			}
@@ -30,5 +24,5 @@ export const useAddMovie = () => {
 		[ dispatch ]
 	);
 
-	return { addMovie };
+	return { getMovieDetails };
 };

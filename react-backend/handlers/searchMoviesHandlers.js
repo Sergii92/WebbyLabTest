@@ -14,6 +14,7 @@ const searchMovies = (req, res, next) => {
 			.find({
 				$or: [ { Title: { $regex: query, $options: '$i' } }, { Stars: { $regex: query, $options: '$i' } } ]
 			})
+			.project({ Title: 1 })
 			.toArray((err, result) => {
 				if (err) throw new Error(err);
 				res.writeHead(200, headers);

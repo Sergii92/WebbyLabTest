@@ -1,7 +1,8 @@
 import { TYPES } from './types';
 
 const initialState = {
-	movies: []
+	moviesList: [],
+	movieDetails: null
 };
 
 export const moviesReducers = (state = initialState, { type, payload }) => {
@@ -9,24 +10,34 @@ export const moviesReducers = (state = initialState, { type, payload }) => {
 		case TYPES.SET_PARTIAL_MOVIES:
 			return {
 				...state,
-				movies: [ ...state.movies, ...payload ]
+				moviesList: [ ...state.moviesList, ...payload ]
 			};
 		case TYPES.SET_ALL_MOVIES:
 			return {
 				...state,
-				movies: payload
+				moviesList: payload
 			};
 		case TYPES.REMOVE_MOVIE:
 			return {
 				...state,
-				movies: state.movies.filter(({ _id }) => _id !== payload)
+				moviesList: state.moviesList.filter(({ _id }) => _id !== payload)
 			};
 		case TYPES.SORT_MOVIES:
 			return {
 				...state,
-				movies: [
-					...state.movies.sort((a, b) => (a['Title'].toUpperCase() > b['Title'].toUpperCase() ? 1 : -1))
+				moviesList: [
+					...state.moviesList.sort((a, b) => (a['Title'].toUpperCase() > b['Title'].toUpperCase() ? 1 : -1))
 				]
+			};
+		case TYPES.SET_MOVIE_DETAILS:
+			return {
+				...state,
+				movieDetails: payload
+			};
+		case TYPES.CLEAR_MOVIE_DETAILS:
+			return {
+				...state,
+				movieDetails: null
 			};
 
 		default:

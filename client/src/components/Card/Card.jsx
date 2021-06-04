@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import Modal from 'react-modal';
+import { useGetMovieDetails } from '../../reducers/movies/hoocks/getMovieDetails';
 import { CardWrapper, CardTitle, CardButton, ButtonBlock } from './styles';
 import { RemoveButton } from '../RemoveButton/RemoveButton';
+import { MovieDetails } from '../MovieDetail/MovieDetail';
 
 const customStyles = {
 	content: {
@@ -17,12 +19,16 @@ const customStyles = {
 
 export const Card = ({ movie }) => {
 	const [ modalIsOpen, setIsOpen ] = useState(false);
+	const { getMovieDetails } = useGetMovieDetails();
+
 	const openMOdal = () => {
 		setIsOpen(true);
+		getMovieDetails(movie._id);
 	};
-	const closeModal = () => {
+	const closeModal = useCallback(() => {
 		setIsOpen(false);
-	};
+	}, []);
+
 	return (
 		<CardWrapper>
 			<CardTitle>{movie.Title}</CardTitle>
@@ -34,12 +40,7 @@ export const Card = ({ movie }) => {
 					style={customStyles}
 					contentLabel="Example Modal"
 				>
-					<h2 style={{ textAlign: 'center' }}>Title: {movie.Title}</h2>
-					<h3>Release Year: {movie['Release Year']}</h3>
-					<h3>Format: {movie.Format}</h3>
-					<p>Stars:</p>
-					<ul>{movie.Stars.map((star) => <li key={star}>{star}</li>)}</ul>
-					<button onClick={closeModal}>close</button>
+					<MovieDetails closeModal={closeModal} />
 				</Modal>
 				<RemoveButton id={movie._id} />
 			</ButtonBlock>

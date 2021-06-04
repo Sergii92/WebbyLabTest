@@ -6,10 +6,12 @@ import { useGetAllMovies } from '../reducers/movies/hoocks/getAllMovies';
 import { selectMovies } from '../reducers/movies/selectors';
 import { moviesActions } from '../reducers/movies/actions';
 import { Card } from '../components/Card/Card';
-import { HomeContainer, Header, Main, Aside, Section } from './styles';
+import { HomeContainer, Header, Main, Aside, Section, LoadingWrapper } from './styles';
 import { ButtonBlock, CardButton } from '../components/Card/styles';
 import { Search } from '../components/Search/Search';
 import { Addmovie } from '../components/Addmovie/AddMovie';
+import { Loader } from '../components/Loader/Loader';
+import { LoaderWrapper } from '../components/Loader/styles';
 
 export const Home = () => {
 	const { setMovies } = useSetMovies();
@@ -56,7 +58,13 @@ export const Home = () => {
 						<Addmovie />
 					</ButtonBlock>
 				</Aside>
-				<Section>{moviesData.map((movie) => <Card movie={movie} key={movie._id} />)}</Section>
+				{moviesData.length ? (
+					<Section>{moviesData.map((movie) => <Card movie={movie} key={movie._id} />)}</Section>
+				) : (
+					<LoadingWrapper>
+						<Loader />
+					</LoadingWrapper>
+				)}
 			</Main>
 		</HomeContainer>
 	);

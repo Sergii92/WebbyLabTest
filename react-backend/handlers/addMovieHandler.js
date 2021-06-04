@@ -12,7 +12,11 @@ const addMovie = (req, res, next) => {
 		collection.insertOne(params, (err, result) => {
 			if (err) throw new Error(err);
 			res.writeHead(200, headers);
-			res.end(JSON.stringify(result.ops));
+			const { _id, Title } = result.ops;
+			console.log('id', _id);
+			console.log('Title', Title);
+			console.log('resultcdfdfdf', result.ops);
+			res.end(JSON.stringify(result.ops.map(({ _id, Title }) => ({ _id, Title }))));
 			client.close();
 		});
 	});

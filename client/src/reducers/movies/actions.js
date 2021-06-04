@@ -15,5 +15,12 @@ export const moviesActions = {
 	}),
 	sortMovies: () => ({
 		type: TYPES.SORT_MOVIES
+	}),
+	setMovieDetails: (movie) => ({
+		type: TYPES.SET_MOVIE_DETAILS,
+		payload: movie
+	}),
+	clearMovieDetails: () => ({
+		type: TYPES.CLEAR_MOVIE_DETAILS
 	})
 };

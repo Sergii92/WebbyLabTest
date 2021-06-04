@@ -17,10 +17,17 @@ export const Search = () => {
 		[ searchParam, searchMovies ]
 	);
 
+	const onClearSearch = () => {
+		setSearchParam('');
+		searchMovies('');
+	};
+
 	return (
 		<SearchWrapper>
 			<SearchInput type="text" placeholder="search" onChange={onHandleChanche} value={searchParam} />
+
 			<SearchButton onClick={onSubmit}>Search</SearchButton>
+			<SearchButton onClick={onClearSearch}>Clear</SearchButton>
 		</SearchWrapper>
 	);
 };

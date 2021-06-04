@@ -20,7 +20,7 @@ const moviesPost = (req, res) => {
 			collection.insertMany(body, (err, result) => {
 				if (err) throw new Error(err);
 				res.writeHead(200, headers);
-				res.end(JSON.stringify(result.ops));
+				res.end(JSON.stringify(result.ops.map(({ _id, Title }) => ({ _id, Title }))));
 				client.close();
 			});
 		});
