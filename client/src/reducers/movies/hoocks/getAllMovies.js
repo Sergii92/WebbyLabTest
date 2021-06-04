@@ -3,11 +3,11 @@ import { useDispatch } from 'react-redux';
 import { API } from '../../../constants/api';
 import { moviesActions } from '../actions';
 
-export const useGetMovies = () => {
+export const useGetAllMovies = () => {
 	const dispatch = useDispatch();
 
 	const getAllMovies = useCallback(
-		async (formData) => {
+		async () => {
 			try {
 				const res = await fetch(`${API.MOVIES}`);
 				if (res.status !== 200) {
@@ -18,7 +18,7 @@ export const useGetMovies = () => {
 
 				dispatch(moviesActions.setAllMovies(data));
 			} catch (e) {
-				console.log(e);
+				console.error(e);
 			}
 		},
 		[ dispatch ]

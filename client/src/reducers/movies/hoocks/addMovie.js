@@ -20,12 +20,10 @@ export const useAddMovie = () => {
 				if (res.status !== 200) {
 					throw new Error(res.status);
 				}
-
 				const data = await res.json();
-
-				dispatch(moviesActions.setPartialMovies([ data ]));
+				dispatch(moviesActions.setPartialMovies([ ...data ]));
 			} catch (e) {
-				console.log(e);
+				console.error(e);
 			}
 		},
 		[ dispatch ]

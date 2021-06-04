@@ -22,7 +22,7 @@ export const useRemoveMovies = () => {
 
 				dispatch(moviesActions.removeMovie(id));
 			} catch (e) {
-				console.log(e);
+				console.error(e);
 			}
 		},
 		[ dispatch ]

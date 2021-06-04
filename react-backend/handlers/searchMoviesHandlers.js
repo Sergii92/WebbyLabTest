@@ -10,12 +10,16 @@ const searchMovies = (req, res, next) => {
 		if (err) throw new Error(err);
 		const db = client.db(DB_NAME);
 		const collection = db.collection(COLLECTION_NAME);
-		collection.find({ $or: [ { Title: query }, { Stars: query } ] }).toArray((err, result) => {
-			if (err) throw new Error(err);
-			res.writeHead(200, headers);
-			res.end(JSON.stringify(result));
-			client.close();
-		});
+		collection
+			.find({
+				$or: [ { Title: { $regex: query, $options: '$i' } }, { Stars: { $regex: query, $options: '$i' } } ]
+			})
+			.toArray((err, result) => {
+				if (err) throw new Error(err);
+				res.writeHead(200, headers);
+				res.end(JSON.stringify(result));
+				client.close();
+			});
 	});
 };
 

@@ -6,6 +6,7 @@ export const CardWrapper = styled.div`
 	border-radius: 10px;
 	background-color: #e9eef7;
 	text-align: center;
+	margin-bottom: 20px;
 `;
 
 export const CardTitle = styled.h4`

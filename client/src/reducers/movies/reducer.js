@@ -21,6 +21,14 @@ export const moviesReducers = (state = initialState, { type, payload }) => {
 				...state,
 				movies: state.movies.filter(({ _id }) => _id !== payload)
 			};
+		case TYPES.SORT_MOVIES:
+			return {
+				...state,
+				movies: [
+					...state.movies.sort((a, b) => (a['Title'].toUpperCase() > b['Title'].toUpperCase() ? 1 : -1))
+				]
+			};
+
 		default:
 			return state;
 	}

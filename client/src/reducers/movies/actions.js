@@ -12,5 +12,8 @@ export const moviesActions = {
 	removeMovie: (id) => ({
 		type: TYPES.REMOVE_MOVIE,
 		payload: id
+	}),
+	sortMovies: () => ({
+		type: TYPES.SORT_MOVIES
 	})
 };
