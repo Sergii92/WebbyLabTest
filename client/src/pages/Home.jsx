@@ -5,7 +5,6 @@ import { useSetMovies } from '../reducers/movies/hoocks/useSetMoviesFromFile';
 import { useGetAllMovies } from '../reducers/movies/hoocks/getAllMovies';
 import { selectMovies } from '../reducers/movies/selectors';
 import { moviesActions } from '../reducers/movies/actions';
-import { Card } from '../components/Card/Card';
 import {
 	HomeContainer,
 	Header,

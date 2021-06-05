@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import { Formik } from 'formik';
 import { useAddMovie } from '../../reducers/movies/hoocks/addMovie';
+import { validateTitle, validateReleaseYear, validateStars } from '../../helpers/validatin';
 import { CardButton } from '../Card/styles';
-import { AddForm, FormInput } from './styels';
+import { AddForm, FormInput, ErrorMessage, InputWrapper } from './styels';
 const customStyles = {
 	content: {
 		top: '50%',
@@ -37,45 +38,60 @@ export const Addmovie = () => {
 						closeModal();
 					}}
 				>
-					{({ values, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+					{({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
 						<AddForm onSubmit={handleSubmit}>
-							<FormInput
-								type="text"
-								name="Title"
-								onChange={handleChange}
-								onBlur={handleBlur}
-								value={values.Title}
-								placeholder="Title"
-							/>
+							<InputWrapper>
+								<FormInput
+									type="text"
+									name="Title"
+									onChange={handleChange}
+									onBlur={handleBlur}
+									value={values.Title}
+									placeholder="Title"
+									validate={validateTitle}
+								/>
+								{errors.Title && touched.Title && <ErrorMessage>{errors.Title}</ErrorMessage>}
+							</InputWrapper>
+							<InputWrapper>
+								<FormInput
+									type="number"
+									name="Release Year"
+									onChange={handleChange}
+									onBlur={handleBlur}
+									value={values['Release Year']}
+									placeholder="Release Year"
+									validate={validateReleaseYear}
+								/>
+								{errors['Release Year'] &&
+								touched['Release Year'] && <ErrorMessage>{errors['Release Year']}</ErrorMessage>}
+							</InputWrapper>
 
-							<FormInput
-								type="number"
-								name="Release Year"
-								onChange={handleChange}
-								onBlur={handleBlur}
-								value={values['Release Year']}
-								placeholder="Release Year"
-							/>
-							<FormInput
-								as="select"
-								name="Format"
-								onChange={handleChange}
-								onBlur={handleBlur}
-								value={values.Format}
-							>
-								<option value="DVD">DVD</option>
-								<option value="VHS">VHS</option>
-								<option value="Blu-Ray">Blu-Ray</option>
-							</FormInput>
+							<InputWrapper>
+								<FormInput
+									as="select"
+									name="Format"
+									onChange={handleChange}
+									onBlur={handleBlur}
+									value={values.Format}
+								>
+									<option value="DVD">DVD</option>
+									<option value="VHS">VHS</option>
+									<option value="Blu-Ray">Blu-Ray</option>
+								</FormInput>
+							</InputWrapper>
 
-							<FormInput
-								type="text"
-								name="Stars"
-								onChange={handleChange}
-								onBlur={handleBlur}
-								value={values.Stars}
-								placeholder="Stars"
-							/>
+							<InputWrapper>
+								<FormInput
+									type="text"
+									name="Stars"
+									onChange={handleChange}
+									onBlur={handleBlur}
+									value={values.Stars}
+									placeholder="Stars"
+									validate={validateStars}
+								/>
+								{errors.Stars && touched.Stars && <ErrorMessage>{errors.Stars}</ErrorMessage>}
+							</InputWrapper>
 
 							<CardButton type="submit" disabled={isSubmitting}>
 								Submit
