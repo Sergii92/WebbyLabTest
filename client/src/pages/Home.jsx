@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useSetMovies } from '../reducers/movies/hoocks/useSetMoviesFromFile';
@@ -12,7 +12,6 @@ import {
 	Main,
 	Aside,
 	Section,
-	LoadingWrapper,
 	Logo,
 	UploadForm,
 	Label,
@@ -23,7 +22,7 @@ import {
 import { CardButton } from '../components/Card/styles';
 import { Search } from '../components/Search/Search';
 import { Addmovie } from '../components/Addmovie/AddMovie';
-import { Loader } from '../components/Loader/Loader';
+import { MoviesList } from '../components/MoviestList/MoviesList';
 
 export const Home = () => {
 	const { setMovies } = useSetMovies();
@@ -34,6 +33,7 @@ export const Home = () => {
 
 	useEffect(() => {
 		getAllMovies();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const changeHandler = (event) => {
@@ -73,7 +73,9 @@ export const Home = () => {
 						<Addmovie />
 					</ButtonBlock>
 				</Aside>
-				<Section>{moviesData.map((movie) => <Card movie={movie} key={movie._id} />)}</Section>
+				<Section>
+					<MoviesList movies={moviesData} />
+				</Section>
 			</Main>
 		</HomeContainer>
 	);

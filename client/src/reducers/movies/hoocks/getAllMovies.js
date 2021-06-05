@@ -9,13 +9,12 @@ export const useGetAllMovies = () => {
 	const getAllMovies = useCallback(
 		async () => {
 			try {
+				dispatch(moviesActions.startLoading());
 				const res = await fetch(`${API.MOVIES}`);
 				if (res.status !== 200) {
 					throw new Error(res.status);
 				}
-
 				const data = await res.json();
-
 				dispatch(moviesActions.setAllMovies(data));
 			} catch (e) {
 				console.error(e);

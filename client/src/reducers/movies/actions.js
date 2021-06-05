@@ -1,6 +1,9 @@
 import { TYPES } from './types';
 
 export const moviesActions = {
+	startLoading: () => ({
+		type: TYPES.MOVIES_LOADING_STARTED
+	}),
 	setPartialMovies: (movies) => ({
 		type: TYPES.SET_PARTIAL_MOVIES,
 		payload: movies

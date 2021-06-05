@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import Modal from 'react-modal';
 import { Formik } from 'formik';
 import { useAddMovie } from '../../reducers/movies/hoocks/addMovie';

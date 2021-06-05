@@ -2,7 +2,8 @@ import { TYPES } from './types';
 
 const initialState = {
 	moviesList: [],
-	movieDetails: null
+	movieDetails: null,
+	isLoading: false
 };
 
 export const moviesReducers = (state = initialState, { type, payload }) => {
@@ -10,12 +11,14 @@ export const moviesReducers = (state = initialState, { type, payload }) => {
 		case TYPES.SET_PARTIAL_MOVIES:
 			return {
 				...state,
-				moviesList: [ ...state.moviesList, ...payload ]
+				moviesList: [ ...state.moviesList, ...payload ],
+				isLoading: false
 			};
 		case TYPES.SET_ALL_MOVIES:
 			return {
 				...state,
-				moviesList: payload
+				moviesList: payload,
+				isLoading: false
 			};
 		case TYPES.REMOVE_MOVIE:
 			return {
@@ -38,6 +41,11 @@ export const moviesReducers = (state = initialState, { type, payload }) => {
 			return {
 				...state,
 				movieDetails: null
+			};
+		case TYPES.MOVIES_LOADING_STARTED:
+			return {
+				...state,
+				isLoading: true
 			};
 
 		default:

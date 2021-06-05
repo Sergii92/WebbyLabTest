@@ -9,6 +9,7 @@ export const useSetMovies = () => {
 	const setMovies = useCallback(
 		async (formData) => {
 			try {
+				dispatch(moviesActions.startLoading());
 				const res = await fetch(`${API.MOVIES}`, {
 					method: 'POST',
 					headers: {

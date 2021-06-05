@@ -15,6 +15,7 @@ export const MovieDetails = ({ closeModal }) => {
 		return () => {
 			dispatch(moviesActions.clearMovieDetails());
 		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	const detail = movieDetails ? (
 		<DeteilsWrapper>
