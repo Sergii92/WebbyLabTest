@@ -11,13 +11,15 @@ export const useGetMovieDetails = () => {
 			try {
 				const res = await fetch(`${API.MOVIES}/${id}`);
 				if (res.status !== 200) {
-					throw new Error(res.status);
+					const error = await res.json();
+					throw new Error(error.message);
 				}
 
 				const data = await res.json();
 
 				dispatch(moviesActions.setMovieDetails(data));
 			} catch (e) {
+				dispatch(moviesActions.createdError(e.message));
 				console.error(e);
 			}
 		},

@@ -3,7 +3,8 @@ import { TYPES } from './types';
 const initialState = {
 	moviesList: [],
 	movieDetails: null,
-	isLoading: false
+	isLoading: false,
+	errors: ''
 };
 let collator = new Intl.Collator();
 
@@ -45,6 +46,17 @@ export const moviesReducers = (state = initialState, { type, payload }) => {
 			return {
 				...state,
 				isLoading: true
+			};
+		case TYPES.CREATE_ERROR:
+			return {
+				...state,
+				errors: payload,
+				isLoading: false
+			};
+		case TYPES.CLEAR_ERROR:
+			return {
+				...state,
+				errors: ''
 			};
 
 		default:

@@ -17,11 +17,12 @@ export const useRemoveMovies = () => {
 					mode: 'cors'
 				});
 				if (res.status !== 200) {
-					throw new Error(res.status);
+					const error = await res.json();
+					throw new Error(error.message);
 				}
-
 				dispatch(moviesActions.removeMovie(id));
 			} catch (e) {
+				dispatch(moviesActions.createdError(e.message));
 				console.error(e);
 			}
 		},

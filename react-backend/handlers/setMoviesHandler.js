@@ -33,7 +33,7 @@ const moviesPost = (req, res) => {
 					res.end(
 						JSON.stringify({
 							code: 400,
-							message: `Duplicated movies: ${duplicatesArray.join(',')}`
+							message: `Duplicated movies: ${duplicatesArray.join(', ')}`
 						})
 					);
 					client.close();

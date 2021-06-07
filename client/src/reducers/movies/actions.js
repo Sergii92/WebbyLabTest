@@ -25,5 +25,12 @@ export const moviesActions = {
 	}),
 	clearMovieDetails: () => ({
 		type: TYPES.CLEAR_MOVIE_DETAILS
+	}),
+	createdError: (message) => ({
+		type: TYPES.CREATE_ERROR,
+		payload: message
+	}),
+	clearError: () => ({
+		type: TYPES.CLEAR_ERROR
 	})
 };

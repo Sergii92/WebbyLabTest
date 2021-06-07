@@ -24,7 +24,7 @@ const addMovie = (req, res, next) => {
 				res.end(
 					JSON.stringify({
 						code: 400,
-						message: `Duplicated movie ${params.Title}`
+						message: `Duplicated movie: ${params.Title}`
 					})
 				);
 				client.close();

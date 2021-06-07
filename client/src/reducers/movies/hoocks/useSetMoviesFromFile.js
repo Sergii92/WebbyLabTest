@@ -19,13 +19,14 @@ export const useSetMovies = () => {
 					mode: 'cors'
 				});
 				if (res.status !== 200) {
-					throw new Error(res.status);
+					const error = await res.json();
+					throw new Error(error.message);
 				}
-
 				const data = await res.json();
 
 				dispatch(moviesActions.setPartialMovies(data));
 			} catch (e) {
+				dispatch(moviesActions.createdError(e.message));
 				console.error(e);
 			}
 		},
