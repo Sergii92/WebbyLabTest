@@ -4,7 +4,8 @@ const initialState = {
 	moviesList: [],
 	movieDetails: null,
 	isLoading: false,
-	errors: ''
+	errors: '',
+	isInfoMessageShown: false
 };
 let collator = new Intl.Collator();
 
@@ -14,7 +15,8 @@ export const moviesReducers = (state = initialState, { type, payload }) => {
 			return {
 				...state,
 				moviesList: [ ...state.moviesList, ...payload ],
-				isLoading: false
+				isLoading: false,
+				isInfoMessageShown: true
 			};
 		case TYPES.SET_ALL_MOVIES:
 			return {
@@ -58,7 +60,11 @@ export const moviesReducers = (state = initialState, { type, payload }) => {
 				...state,
 				errors: ''
 			};
-
+		case TYPES.CLEAR_INFO_MESSAGE:
+			return {
+				...state,
+				isInfoMessageShown: false
+			};
 		default:
 			return state;
 	}

@@ -23,6 +23,7 @@ import { Search } from '../components/Search/Search';
 import { Addmovie } from '../components/Addmovie/AddMovie';
 import { MoviesList } from '../components/MoviestList/MoviesList';
 import { ErrorModal } from '../components/Errormodal/ErrorModal';
+import { InfoMessage } from '../components/InfoMessage/InfoMessage';
 
 export const Home = () => {
 	const { setMovies } = useSetMovies();
@@ -72,6 +73,7 @@ export const Home = () => {
 						<CardButton onClick={handlerSort}>Sort by name</CardButton>
 						<Addmovie />
 					</ButtonBlock>
+					<InfoMessage />
 					<ErrorModal />
 				</Aside>
 				<Section>
