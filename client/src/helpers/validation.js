@@ -1,6 +1,6 @@
 export const validateTitle = (value) => {
 	let error;
-	if (!value) {
+	if (!value.trim()) {
 		error = 'Required';
 	} else if (value.length < 2) {
 		error = 'Incorect movie title';
@@ -19,10 +19,16 @@ export const validateReleaseYear = (value) => {
 };
 
 export const validateStars = (value) => {
-	let error;
-
-	if (!value) {
-		error = 'Required';
+	if (!value.trim()) {
+		return 'Required';
 	}
-	return error;
+	if (!/^([a-zA-Z а-яА-Я їіІЇёЁ ,-]+)$/.test(value)) {
+		return 'Incorect format';
+	}
+
+	const starsArray = value.split(',');
+	const normalizeStarsArray = starsArray.map((star) => star.trim().toUpperCase());
+	if (new Set(normalizeStarsArray).size !== normalizeStarsArray.length) {
+		return 'There should be no duplicates';
+	}
 };

@@ -5,6 +5,7 @@ const initialState = {
 	movieDetails: null,
 	isLoading: false
 };
+let collator = new Intl.Collator();
 
 export const moviesReducers = (state = initialState, { type, payload }) => {
 	switch (type) {
@@ -28,9 +29,7 @@ export const moviesReducers = (state = initialState, { type, payload }) => {
 		case TYPES.SORT_MOVIES:
 			return {
 				...state,
-				moviesList: [
-					...state.moviesList.sort((a, b) => (a['Title'].toUpperCase() > b['Title'].toUpperCase() ? 1 : -1))
-				]
+				moviesList: [ ...state.moviesList.sort((a, b) => collator.compare(a['Title'], b['Title'])) ]
 			};
 		case TYPES.SET_MOVIE_DETAILS:
 			return {

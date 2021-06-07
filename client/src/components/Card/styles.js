@@ -10,6 +10,7 @@ export const CardWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	position: relative;
 `;
 
 export const CardTitle = styled.h4`

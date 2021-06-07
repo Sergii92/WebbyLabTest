@@ -17,11 +17,34 @@ const moviesPost = (req, res) => {
 			if (err) throw new Error(err);
 			const db = client.db(DB_NAME);
 			const collection = db.collection(COLLECTION_NAME);
-			collection.insertMany(body, (err, result) => {
-				if (err) throw new Error(err);
-				res.writeHead(200, headers);
-				res.end(JSON.stringify(result.ops.map(({ _id, Title }) => ({ _id, Title }))));
-				client.close();
+			collection.find({}).project({ Title: 1 }).toArray((err, allMoviesFromDb) => {
+				const duplicates = allMoviesFromDb.reduce((duplicatedTitles, movieFromDb) => {
+					body.forEach((movieFromFile) => {
+						if (movieFromFile.Title === movieFromDb.Title) {
+							duplicatedTitles[movieFromDb.Title] = true;
+						}
+					});
+					return duplicatedTitles;
+				}, {});
+				const duplicatesArray = Object.keys(duplicates);
+
+				if (duplicatesArray.length) {
+					res.writeHead(400, headers);
+					res.end(
+						JSON.stringify({
+							code: 400,
+							message: `Duplicated movies: ${duplicatesArray.join(',')}`
+						})
+					);
+					client.close();
+				} else {
+					collection.insertMany(body, (err, result) => {
+						if (err) throw new Error(err);
+						res.writeHead(200, headers);
+						res.end(JSON.stringify(result.ops.map(({ _id, Title }) => ({ _id, Title }))));
+						client.close();
+					});
+				}
 			});
 		});
 	});
