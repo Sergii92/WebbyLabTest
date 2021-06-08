@@ -16,7 +16,8 @@ import {
 	Label,
 	UploadInput,
 	ButtonBlock,
-	UploadButton
+	UploadButton,
+	SubmitBlock
 } from './styles';
 import { CardButton } from '../components/Card/styles';
 import { Search } from '../components/Search/Search';
@@ -36,7 +37,6 @@ export const Home = () => {
 		getAllMovies();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
-
 	const changeHandler = (event) => {
 		setSelectedFile(event.target.files[0]);
 	};
@@ -44,13 +44,16 @@ export const Home = () => {
 	const handleSubmission = () => {
 		const formData = new FormData();
 		formData.append('File', selectedFile);
+
 		setMovies(formData);
 	};
 
 	const handlerSort = () => {
 		dispatch(moviesActions.sortMovies());
 	};
-
+	const handelClear = () => {
+		setSelectedFile('');
+	};
 	const moviesData = useSelector(selectMovies);
 
 	return (
@@ -65,9 +68,16 @@ export const Home = () => {
 					<UploadForm onSubmit={(e) => e.preventDefault()}>
 						<Label>
 							Upload movies from file
-							<UploadInput type="file" name="file" onChange={changeHandler} />
+							<UploadInput type="file" name="file" accept=".txt" onChange={changeHandler} />
 						</Label>
-						<UploadButton onClick={handleSubmission}>Submit</UploadButton>
+						<SubmitBlock>
+							<UploadButton onClick={handleSubmission} disabled={!selectedFile}>
+								Submit
+							</UploadButton>
+							<UploadButton type="reset" onClick={handelClear}>
+								Clear
+							</UploadButton>
+						</SubmitBlock>
 					</UploadForm>
 					<ButtonBlock>
 						<CardButton onClick={handlerSort}>Sort by name</CardButton>

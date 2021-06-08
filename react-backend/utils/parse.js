@@ -3,6 +3,7 @@ const querystring = require('querystring');
 function parse(str) {
 	let arr = [];
 	let obj = {};
+
 	str.split('\n').forEach((line) => {
 		if (
 			line.startsWith('Title: ') ||

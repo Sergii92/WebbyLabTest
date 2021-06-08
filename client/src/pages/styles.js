@@ -49,7 +49,10 @@ export const UploadInput = styled.input`
 	outline: none;
 	margin-top: 10px;
 `;
-export const UploadButton = styled.button``;
+export const UploadButton = styled.button`
+	width: 150px;
+	height: 30px;
+`;
 
 export const Section = styled.div`
 	width: 70%;
@@ -84,8 +87,14 @@ export const LoadingWrapper = styled.div`
 
 export const ButtonBlock = styled.div`
 	display: flex;
-	justify-content: space-around;
+	justify-content: space-between;
 	background: black;
 	padding: 20px 40px;
 	color: white;
+`;
+
+export const SubmitBlock = styled.div`
+	display: flex;
+	justify-content: space-between;
+	margin-top: 30px;
 `;

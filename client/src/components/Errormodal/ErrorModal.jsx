@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { selectError } from '../../reducers/movies/selectors';
 import { moviesActions } from '../../reducers/movies/actions';
 import { ErrorMessage, ErrorWrapper, CloseButton, ModalContent } from './styles';

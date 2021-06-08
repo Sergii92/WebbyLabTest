@@ -12,7 +12,12 @@ const moviesPost = (req, res) => {
 
 	req.on('end', function() {
 		const client = new MongoClient(URL);
-		body = parse(body);
+		try {
+			body = parse(body);
+		} catch (e) {
+			console.error('errrrrrrrrrroooooooooor', e);
+		}
+
 		client.connect((err) => {
 			if (err) throw new Error(err);
 			const db = client.db(DB_NAME);
@@ -26,6 +31,7 @@ const moviesPost = (req, res) => {
 					});
 					return duplicatedTitles;
 				}, {});
+
 				const duplicatesArray = Object.keys(duplicates);
 
 				if (duplicatesArray.length) {
@@ -34,6 +40,15 @@ const moviesPost = (req, res) => {
 						JSON.stringify({
 							code: 400,
 							message: `Duplicated movies: ${duplicatesArray.join(', ')}`
+						})
+					);
+					client.close();
+				} else if (!body.length) {
+					res.writeHead(400, headers);
+					res.end(
+						JSON.stringify({
+							code: 400,
+							message: `Incorect data in file`
 						})
 					);
 					client.close();
